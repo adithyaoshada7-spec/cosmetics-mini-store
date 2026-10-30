@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow & Glam Cosmetics | Mini Catalog Store</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #d46a7e;
+            --primary-hover: #b85064;
+            --rose-gold: #c88a75;
+            --bg-nude: #faf6f4;
+            --card-bg: #ffffff;
+            --text-dark: #2c2523;
+            --text-muted: #736966;
+            --accent-soft: #fceeed;
+            --whatsapp-green: #25D366;
+            --whatsapp-hover: #20ba59;
+            --radius-md: 16px;
+            --radius-sm: 10px;
+            --shadow-subtle: 0 8px 24px rgba(184, 80, 100, 0.08);
+            --shadow-hover: 0 14px 30px rgba(184, 80, 100, 0.16);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-nude);
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding-bottom: 90px;
+        }
+
+        /* Demo Notice Top Banner */
+        .demo-bar {
+            background: linear-gradient(90deg, #d46a7e, #c88a75);
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 13px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .demo-bar span {
+            font-weight: 600;
+        }
+        .demo-bar .phone-input-wrapper {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.25);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        .demo-bar input {
+            border: none;
+            background: transparent;
+            color: #fff;
+            font-weight: 600;
+            outline: none;
+            width: 130px;
+            font-size: 13px;
+        }
+        .demo-bar input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Header / Brand */
+        header {
+            background: #ffffff;
+            padding: 22px 20px 18px;
+            text-align: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(212, 106, 126, 0.1);
+        }
+        .brand-badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+        }
+        .brand-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        .brand-tagline {
+            font-size: 13px;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Trust Strip */
+        .trust-strip {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 12px 16px;
+            background: #fff;
+            border-bottom: 1px solid #f0e6e4;
+            font-size: 12px;
+            color: var(--text-muted);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .trust-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .trust-item i {
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* Filter Chips */
+        .filter-section {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            scrollbar-width: none;
+            margin-bottom: 20px;
+        }
+        .filter-section::-webkit-scrollbar {
+            display: none;
+        }
+        .filter-btn {
+            background: #fff;
+            border: 1px solid #eadad7;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(212, 106, 126, 0.25);
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 580px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+        }
+
+        /* Product Card */
+        .product-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid rgba(235, 220, 218, 0.6);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(4px);
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 12px;
+            z-index: 2;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .img-container {
+            width: 100%;
+            padding-top: 100%; /* 1:1 Aspect Ratio */
+            position: relative;
+            background: #f8f4f3;
+            overflow: hidden;
+        }
+        .img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .product-card:hover .img-container img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--rose-gold);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 38px;
+        }
+
+        .product-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        @media (max-width: 580px) {
+            .product-info {
+                padding: 10px;
+            }
+            .product-name {
+                font-size: 13px;
+                height: 34px;
+            }
+            .product-desc {
+                display: none;
+            }
+        }
+
+        .price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            margin-top: auto;
+            margin-bottom: 12px;
+        }
+        .current-price {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .old-price {
+            font-size: 13px;
+            color: #a89f9d;
+            text-decoration: line-through;
+        }
+
+        /* WhatsApp Button */
+        .btn-order-wa {
+            background-color: var(--whatsapp-green);
+            color: #ffffff;
+            border: none;
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            width: 100%;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+        }
+        .btn-order-wa:hover, .btn-order-wa:active {
+            background-color: var(--whatsapp-hover);
+            transform: scale(0.98);
+        }
+        .btn-order-wa i {
+            font-size: 17px;
+        }
+
+        /* Bottom Floating WhatsApp Help Button */
+        .floating-chat {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+            z-index: 99;
+            transition: all 0.3s ease;
+        }
+        .floating-chat:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        /* Order Details Modal (Optional Quick Fill) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(3px);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+        .modal-card {
+            background: #fff;
+            max-width: 420px;
+            width: 100%;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            animation: modalPop 0.25s ease-out;
+            position: relative;
+        }
+        @keyframes modalPop {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #f3ecea;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+        .modal-prod-summary {
+            background: var(--accent-soft);
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-prod-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .form-group {
+            margin-bottom: 12px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-muted);
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2d2cf;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+        .modal-submit-btn {
+            background: var(--whatsapp-green);
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 16px;
+            transition: background 0.2s;
+        }
+        .modal-submit-btn:hover {
+            background: var(--whatsapp-hover);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Demo Customization Bar for the Client to test easily -->
+    <div class="demo-bar">
+        <span>✨ LIVE DEMO PREVIEW:</span>
+        <label for="sellerPhone">WhatsApp අංකය: </label>
+        <div class="phone-input-wrapper">
+            <i class="fab fa-whatsapp" style="margin-right: 5px;"></i>
+            <input type="text" id="sellerPhone" value="94763568737" placeholder="947xxxxxxxx">
+        </div>
+        <small style="opacity: 0.85;">(ඔයාගේ අංකය දාලා Click කරලා බලන්න)</small>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <span class="brand-badge">✨ 100% Original Cosmetics</span>
+        <h1 class="brand-title">GLOW & BEAUTY STORE</h1>
+        <p class="brand-tagline">ඔබේ සමට ගැළපෙන හොඳම රූපලාවණ්‍ය නිෂ්පාදන පහසුවෙන්ම WhatsApp එකෙන් ගෙදරටම ගෙන්වා ගන්න</p>
+    </header>
+
+    <!-- Trust Strip -->
+    <div class="trust-strip">
+        <div class="trust-item"><i class="fas fa-truck-fast"></i> දිවයින පුරා බෙදාහැරීම</div>
+        <div class="trust-item"><i class="fas fa-money-bill-wave"></i> Cash on Delivery</div>
+        <div class="trust-item"><i class="fas fa-shield-heart"></i> 100% ආරක්ෂිතයි</div>
+        <div class="trust-item"><i class="fab fa-whatsapp"></i> Instant WhatsApp Order</div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        
+        <!-- Category Filters -->
+        <div class="filter-section">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">සියල්ල (All)</button>
+            <button class="filter-btn" onclick="filterCategory('serum', this)">Serums & Creams</button>
+            <button class="filter-btn" onclick="filterCategory('sunscreen', this)">Sunscreen</button>
+            <button class="filter-btn" onclick="filterCategory('lips', this)">Lip Care & Lipstick</button>
+            <button class="filter-btn" onclick="filterCategory('skincare', this)">Face Wash</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="products-grid" id="productGrid">
+            <!-- Dynamic Items will be rendered here -->
+        </div>
+
+    </div>
+
+    <!-- Quick Order Modal -->
+    <div class="modal-overlay" id="orderModal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeOrderModal()"><i class="fas fa-times"></i></button>
+            <h3 class="modal-title">Order Information</h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px;">ඔබේ විස්තර ඇතුළත් කර WhatsApp එකෙන් Order කරන්න:</p>
+            
+            <div class="modal-prod-summary">
+                <span id="modalProdTitle" class="modal-prod-name">Product Name</span>
+                <span id="modalProdPrice" style="font-weight: 700;">Rs. 0</span>
+            </div>
+
+            <div class="form-group">
+                <label>ඔබගේ නම (Full Name):</label>
+                <input type="text" id="custName" placeholder="උදා: Dilini Perera">
+            </div>
+
+            <div class="form-group">
+                <label>ලිපිනය (Delivery Address):</label>
+                <textarea id="custAddress" rows="2" placeholder="උදා: No 12, Galle Road, Colombo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>දුරකථන අංකය (Phone Number):</label>
+                <input type="tel" id="custPhone" placeholder="07x xxx xxxx">
+            </div>
+
+            <button class="modal-submit-btn" onclick="sendWhatsAppOrder()">
+                <i class="fab fa-whatsapp" style="font-size: 19px;"></i> WhatsApp එකට යවන්න
+            </button>
+            
+            <p style="text-align: center; margin-top: 10px; font-size: 11px; color: #8c8280;">
+                <a href="javascript:void(0)" onclick="quickDirectWhatsApp()" style="color: var(--primary); text-decoration: underline;">
+                    විස්තර පසුව යැවීමට කෙලින්ම WhatsApp යන්න
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp Contact -->
+    <a href="javascript:void(0)" onclick="contactGeneralWhatsApp()" class="floating-chat">
+        <i class="fab fa-whatsapp" style="font-size: 22px;"></i>
+        <span>Chat Now</span>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Glow & Glam Cosmetics Store. All Rights Reserved.</p>
+        <p style="margin-top: 4px; font-size: 11px; opacity: 0.8;">Single-Page WhatsApp Mini-Store Powered for Online Sellers</p>
+    </footer>
+
+    <script>
+        // High Quality Cosmetics Catalog (8 Curated Best Sellers)
+        const products = [
+            {
+                id: 1,
+                name: "Vitamin C Brightening Face Serum (30ml)",
+                category: "serum",
+                badge: "Best Seller 🔥",
+                price: 2450,
+                oldPrice: 3200,
+                desc: "කුරුලෑ ලප කැලැල් මැකීමට සහ සම පැහැපත් කර නීරෝගී තෙතමනය ලබා දෙයි.",
+                image: "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 2,
+                name: "Ultra Matte Velvet Lipstick (Shade 04 Rose Nude)",
+                category: "lips",
+                badge: "Trending 💖",
+                price: 1850,
+                oldPrice: 2200,
+                desc: "පැය 12ක් නොමැකී පවතින සුපිරි Matte නිමාවක් සහ සුවපහසු තොල් ආලේපනයක්.",
+                image: "https://images.unsplash.com/photo-1586495777744-4413f21062fa?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 3,
+                name: "Glow Whitening Night Cream (50g)",
+                category: "serum",
+                badge: "Top Rated ⭐",
+                price: 2950,
+                oldPrice: 3800,
+                desc: "රාත්‍රී නින්දේදීම සම පෝෂණය කරමින් පැහැපත් දීප්තිමත් බවක් එක් කරයි.",
+                image: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 4,
+                name: "SPF 50+ Invisible Sunscreen Gel (50ml)",
+                category: "sunscreen",
+                badge: "Must Have ☀️",
+                price: 2250,
+                oldPrice: 2800,
+                desc: "තෙල් සහිත නොවන (Non-greasy), White Cast නොහිටින සම්පූර්ණ UV ආරක්ෂාව.",
+                image: "https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 5,
+                name: "Niacinamide 10% Pore Minimizing Serum",
+                category: "serum",
+                badge: "Hot Deal 💥",
+                price: 2650,
+                oldPrice: 3400,
+                desc: "විශාල රෝම කූප (Open Pores) කුඩා කර සම මෘදු සහ සිනිඳු කරයි.",
+                image: "https://images.unsplash.com/photo-1608248597359-5b651030b42f?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 6,
+                name: "Hydrating Lip Glow Oil (Cherry Blossom)",
+                category: "lips",
+                badge: "New Arrival 🌸",
+                price: 1450,
+                oldPrice: 1750,
+                desc: "ස්වභාවික රෝස පැහැයක් සහ නිරෝගී තෙතමනයක් ලබාදෙන Lip Gloss Oil.",
+                image: "https://images.unsplash.com/photo-1617897903246-719242758050?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 7,
+                name: "Gentle Tea Tree Foam Cleanser (120ml)",
+                category: "skincare",
+                badge: "Acne Care 🍃",
+                price: 1950,
+                oldPrice: 2400,
+                desc: "කුරුලෑ පාලනය කර තෙල් ගතිය ඉවත් කරන මෘදු Face Wash එකක්.",
+                image: "https://images.unsplash.com/photo-1556228722-d0b71f3796d1?auto=format&fit=crop&w=600&q=80"
+            },
+            {
+                id: 8,
+                name: "Hyaluronic Acid Moisture Boost Cream",
+                category: "serum",
+                badge: "Deep Hydration 💧",
+                price: 2800,
+                oldPrice: 3500,
+                desc: "වියළි සමට ක්ෂණික තෙතමනයක් සහ දිදුලන පෙනුමක් ලබාදෙන ක්‍රීම් එකක්.",
+                image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80"
+            }
+        ];
+
+        let selectedProduct = null;
+
+        // Render products
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = items.map(item => `
+                <div class="product-card">
+                    ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
+                    <div class="img-container">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${item.category}</div>
+                        <h4 class="product-name">${item.name}</h4>
+                        <p class="product-desc">${item.desc}</p>
+                        <div class="price-row">
+                            <span class="current-price">Rs. ${item.price.toLocaleString()}</span>
+                            ${item.oldPrice ? `<span class="old-price">Rs. ${item.oldPrice.toLocaleString()}</span>` : ''}
+                        </div>
+                        <button class="btn-order-wa" onclick="openOrderModal(${item.id})">
+                            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Category Filter
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (cat === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === cat);
+                renderProducts(filtered);
+            }
+        }
+
+        // Modal Handlers
+        function openOrderModal(productId) {
+            selectedProduct = products.find(p => p.id === productId);
+            if (!selectedProduct) return;
+
+            document.getElementById('modalProdTitle').textContent = selectedProduct.name;
+            document.getElementById('modalProdPrice').textContent = `Rs. ${selectedProduct.price.toLocaleString()}`;
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function closeOrderModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        // Close on background click
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                closeOrderModal();
+            }
+        }
+
+        // Get Seller Phone
+        function getSellerPhone() {
+            const inputVal = document.getElementById('sellerPhone').value.trim();
+            let cleaned = inputVal.replace(/[^0-9]/g, '');
+            if (cleaned.startsWith('0')) {
+                cleaned = '94' + cleaned.substring(1);
+            }
+            return cleaned || '94763568737';
+        }
+
+        // Send WhatsApp with filled customer info
+        function sendWhatsAppOrder() {
+            if (!selectedProduct) return;
+            const name = document.getElementById('custName').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+
+            const phoneNum = getSellerPhone();
+            const message = `Hi! මට මේ *${selectedProduct.name}* (Rs. ${selectedProduct.price.toLocaleString()}) එක ගන්න ඕන.\n\nමගේ විස්තර:\nනම: ${name || '...................'}\nලිපිනය: ${address || '...................'}\nදුරකථන අංකය: ${phone || '...................'}`;
+
+            const url = `https://wa.me/${phoneNum}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            closeOrderModal();
+        }
+
+        // Quick direct order (pre-filled template format as requested)
+        function quickDirectWhatsApp() {
+            if (!selectedProduct) return;
+            const phoneNum = getSellerPhone();
+            const message = `Hi! මට මේ *${selectedProduct.name}* (Rs. ${selectedProduct.price.toLocaleString()}) එක ගන්න ඕන.\n\nමගේ විස්තර:\nනම:\nලිපිනය:\nදුරකථන අංකය:`;
+            
+            const url = `https://wa.me/${phoneNum}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+            closeOrderModal();
+        }
+
+        // General Chat
+        function contactGeneralWhatsApp() {
+            const phoneNum = getSellerPhone();
+            const message = `Hi! මට Cosmetics Items ගැන විස්තර දැනගන්න පුළුවන්ද?`;
+            const url = `https://wa.me/${phoneNum}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        // Initial render
+        renderProducts(products);
+    </script>
+</body>
+</html>
